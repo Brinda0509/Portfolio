@@ -1,0 +1,167 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-coffee: var(--coffee);
+  --color-espresso: var(--espresso);
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+}
+
+:root {
+  --radius: 0.875rem;
+
+  /* ── Coffee Gold Metallic palette ── */
+  --background: oklch(0.10 0.025 35);      /* deep espresso #1A0F0A */
+  --foreground: oklch(0.95 0.015 75);      /* warm cream #F2EAD8 */
+  --card: oklch(0.14 0.03 35 / 0.55);     /* dark coffee glass */
+  --card-foreground: oklch(0.95 0.015 75);
+  --popover: oklch(0.12 0.025 35);
+  --popover-foreground: oklch(0.95 0.015 75);
+
+  --primary: oklch(0.75 0.13 68);          /* coffee gold #C9963A */
+  --primary-foreground: oklch(0.10 0.025 35);
+  --secondary: oklch(0.42 0.08 45);        /* rich coffee brown #6B3A1F */
+  --secondary-foreground: oklch(0.95 0.015 75);
+
+  --muted: oklch(0.18 0.03 40);
+  --muted-foreground: oklch(0.62 0.04 60);
+  --accent: oklch(0.42 0.08 45);
+  --accent-foreground: oklch(0.95 0.015 75);
+  --destructive: oklch(0.60 0.20 25);
+  --destructive-foreground: oklch(0.97 0 0);
+  --border: oklch(1 0 0 / 0.09);
+  --input: oklch(1 0 0 / 0.10);
+  --ring: oklch(0.75 0.13 68 / 0.55);
+
+  --espresso: oklch(0.10 0.025 35);        /* #1A0F0A */
+  --coffee: oklch(0.42 0.08 45);           /* #6B3A1F */
+  --gold: oklch(0.75 0.13 68);             /* #C9963A */
+
+  --glass-bg: oklch(1 0 0 / 0.04);
+  --glass-border: oklch(1 0 0 / 0.10);
+
+  /* Aurora: warm gold bloom + coffee shadow */
+  --gradient-aurora:
+    radial-gradient(ellipse at 20% 0%,   oklch(0.42 0.08 45 / 0.40), transparent 55%),
+    radial-gradient(ellipse at 80% 100%, oklch(0.75 0.13 68 / 0.28), transparent 55%);
+
+  /* Metallic gold glow */
+  --shadow-glow-gold:   0 0 40px oklch(0.75 0.13 68 / 0.40), 0 0 80px oklch(0.75 0.13 68 / 0.18);
+  --shadow-glow-coffee: 0 0 40px oklch(0.42 0.08 45 / 0.45), 0 0 80px oklch(0.42 0.08 45 / 0.22);
+
+  /* Keep legacy aliases so existing utility classes still compile */
+  --shadow-glow-cyan:   var(--shadow-glow-gold);
+  --shadow-glow-purple: var(--shadow-glow-coffee);
+}
+
+.dark { color-scheme: dark; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; filter: blur(20px); }
+  50%       { opacity: 1;   filter: blur(28px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes grid-drift {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body { }
+  a, button, input, textarea { }
+  ::selection { background: oklch(0.75 0.13 68 / 0.45); color: var(--color-foreground); }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-border);
+  }
+  .glass-strong {
+    background: linear-gradient(135deg, oklch(1 0 0 / 0.07), oklch(1 0 0 / 0.02));
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid oklch(1 0 0 / 0.10);
+  }
+
+  /* Glow utilities — gold replaces cyan, coffee replaces purple */
+  .text-glow-cyan   { text-shadow: 0 0 30px oklch(0.75 0.13 68 / 0.65); }
+  .text-glow-purple { text-shadow: 0 0 30px oklch(0.42 0.08 45 / 0.70); }
+  .shadow-glow-cyan   { box-shadow: var(--shadow-glow-gold); }
+  .shadow-glow-purple { box-shadow: var(--shadow-glow-coffee); }
+
+  .bg-aurora { background: var(--gradient-aurora); }
+  .bg-grid {
+    background-image:
+      linear-gradient(oklch(1 0 0 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Metallic gold gradient text */
+  .text-gradient {
+    background: linear-gradient(120deg, oklch(0.95 0.015 75), oklch(0.75 0.13 68));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Champagne → gold → coffee metallic sweep */
+  .text-gradient-mix {
+    background: linear-gradient(110deg, #F2EAD8 0%, #C9963A 45%, #6B3A1F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .no-cursor { cursor: none !important; }
+}
